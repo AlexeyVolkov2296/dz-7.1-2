@@ -1,23 +1,28 @@
-print("here we go")
-
 def polish(s):
-  pol = []
-  assert "-, +, /, *"  in s, "No signs -, +, /, *"
-  pol.append(s)
-  for sign, number1, number2 in pol:
-    if sign == "+":
-      print(int(number1)+int(number2))
-    elif sign == "-":
-      print(int(number1) - int(number2))
-    elif sign == "*":
-      print(int(number1) * int(number2))
-    elif sign == "/":
-      try:
-        print(int(number1) / int(number2))
-      except (Exception) as e:
-       print(f"errors {e}")
+     polish_list = s.strip().split(' ')
+     operators_list = ['/', '*', '-', '+']
+     assert not len(polish_list) != 3, 'Не правильный формат нотации'
 
-try:      
-  polish(input().split())
-except (Exception) as e:
-  print(f"errors {e}")
+     operator = polish_list[0]
+     assert operator in operators_list, "No signs -, +, /, *"
+
+     try:
+         operand_1 = int(polish_list[1])
+         operand_2 = int(polish_list[2])
+     except ValueError:
+         return print(f'Ошибка приравнения  строки к числу')
+
+     if operator == "+":
+         print(operand_1 + operand_2)
+     elif operator == "-":
+         print(operand_1 - operand_2)
+     elif operator == "*":
+         print(operand_1 * operand_2)
+     elif operator == "/":
+         try:
+             print(operand_1 / operand_2)
+         except ZeroDivisionError:
+             print(f'Деление на ноль не возможно')
+
+if __name__ == '__main__':
+     polish(input('введите польскую нотацию: '))
